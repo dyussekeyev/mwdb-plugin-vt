@@ -7,7 +7,7 @@ from mwdb.model import File
 from mwdblib import MWDB
 
 __author__ = "Askar Dyussekeyev"
-__version__ = "0.0.1"
+__version__ = "0.1.0"
 __doc__ = "Simple plugin for mwdb-core that requests a file report from VirusTotal"
 
 
@@ -41,6 +41,7 @@ def VtProcessFile(sha256):
         first_submission_date: {datetime.utcfromtimestamp(attributes['first_submission_date']).strftime('%Y-%m-%d %H:%M:%S UTC')}
         last_submission_date: {datetime.utcfromtimestamp(attributes['last_submission_date']).strftime('%Y-%m-%d %H:%M:%S UTC')}
         last_analysis_date: {datetime.utcfromtimestamp(attributes['last_analysis_date']).strftime('%Y-%m-%d %H:%M:%S UTC')}
+        
         """
 
         for engine, result in attributes['last_analysis_results'].items():
