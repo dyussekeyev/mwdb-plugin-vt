@@ -31,7 +31,7 @@ def VtProcessFile(sha256):
         attributes = data["attributes"]
         
         comment = f"""
-        VT Link: {data['links']['self']}
+        VT Link: https://www.virustotal.com/gui/file/{sha256]}
         
         malicious: {attributes['last_analysis_stats']['malicious']}
         suspicious: {attributes['last_analysis_stats']['suspicious']}
