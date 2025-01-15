@@ -19,19 +19,19 @@ config_api_key = ""
 config_vt_api_key = ""
 
 
-def VtProcessFile(sha256):
+def VtProcessFile(hash_value):
     mwdb = MWDB(api_url=config_api_url, api_key=config_api_key)
     
-    file = mwdb.query_file(sha256)
+    file = mwdb.query_file(hash_value)
        
-    response = requests.get(f"https://www.virustotal.com/api/v3/files/{sha256}", headers={"x-apikey": config_vt_api_key})
+    response = requests.get(f"https://www.virustotal.com/api/v3/files/{hash_value}", headers={"x-apikey": config_vt_api_key})
     
     if response.status_code == 200:
         data = response.json()["data"]
         attributes = data["attributes"]
         
         comment = f"""
-        VT Link: https://www.virustotal.com/gui/file/{sha256]}
+        VT Link: https://www.virustotal.com/gui/file/{hash_value}
         
         malicious: {attributes['last_analysis_stats']['malicious']}
         suspicious: {attributes['last_analysis_stats']['suspicious']}
@@ -59,7 +59,7 @@ def VtProcessFile(sha256):
         error = response.json().get("error", {})
         code = error.get("code", "Unknown")
         message = error.get("message", "No message provided")
-        logger.info("VirusTotal error: %s %s for sha256 = %s", code, message, sha256)
+        logger.info("VirusTotal error: %s %s for sha256 = %s", code, message, hash_value)
 
 
 class VtHookHandler(PluginHookHandler):
